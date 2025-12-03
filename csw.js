@@ -1,15 +1,14 @@
 const CACHE_NAME = 'equip-assess-v1';
 const urlsToCache = [
   '/',
-  '/index.html',  // Your Dashboard.html renamed to index.html
+  '/index.html',
   '/dump-truck.html',
   '/road-grader.html',
   '/bachoe.html',
   '/excavator.html',
   '/tracked-dozer.html',
   '/roller.html',
-  '/front-end-loader.html',
-  // Add any CSS/JS if external, but yours are inline
+  '/front-end-loader.html'
 ];
 
 self.addEventListener('install', (event) => {
