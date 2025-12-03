@@ -1,7 +1,7 @@
 {
   "name": "Heavy Equipment Assessment App",
   "short_name": "EquipAssess",
-  "description": "Mobile checklists for rigid dump trucks, excavators, graders, and more. NQF Level 2 training assessments.",
+  "description": "Mobile checklists for dump trucks, excavators, graders, rollers, and more. NQF Level 2 training assessments.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8f9fa",
@@ -9,13 +9,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
