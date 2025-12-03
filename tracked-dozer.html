@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracked Dozer Observation Checklist - Assessment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            background-color: #f5f5f5;
+            line-height: 1.4;
+        }
+        .section {
+            background-color: #fafafa;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        h1, h2, h3, h4, h5 {
+            border-bottom: 2px solid #3498db;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        h1 { text-align: center; }
+        .personal-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="date"], input[type="number"], textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="number"] {
+            width: 80px;
+        }
+        textarea {
+            height: 60px;
+            resize: vertical;
+        }
+        .sop {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin: 10px 0;
+        }
+        .sop ol {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .sop li {
+            word-wrap: break-word;
+            margin-bottom: 5px;
+        }
+        .assessment {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .assessment label {
+            display: flex;
+            align-items: center;
+        }
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 10px;
+        }
+        .signature {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .assessment-summary {
+            display: block;
+        }
+        .competence-score {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e8f5e8;
+            border-left: 4px solid #28a745;
+            border-radius: 4px;
+        }
+        .competence-score h4 {
+            margin: 0 0 5px 0;
+            color: #155724;
+        }
+        .thresholds {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            height: 100px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .so, .criteria, .question {
+            margin-bottom: 15px;
+        }
+        .moderator-comments {
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .personal-details, .signature, .thresholds {
+                grid-template-columns: 1fr;
+            }
+            input, button, textarea {
+                min-height: 44px;
+                font-size: 13px;
+            }
+            input[type="checkbox"], input[type="radio"] {
+                width: 18px;
+                height: 18px;
+            }
+            .assessment {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .assessment label {
+                display: block;
+            }
+            canvas {
+                height: 80px;
+            }
+        }
+        @media print {
+            body {
+                margin: 0;
+                background: white;
+                font-size: 12px;
+            }
+            .section {
+                box-shadow: none;
+                background: white;
+                margin: 5px 0;
+                padding: 8px;
+            }
+            button {
+                display: none;
+            }
+            canvas {
+                height: 60px !important;
+            }
+            h1, h2, h3, h4, h5 {
+                border-bottom: 1px solid #3498db;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="checklistForm">
+        <div class="section">
+            <h1>Observation Checklist for Tracked Dozer Operation</h1>
+            <p>Unit Standard: Operate a Tracked Dozer 116058 | NQF Level: 2 | Credits: 24</p>
+        </div>
+
+        <div class="section">
+            <h2>Personal Details</h2>
+            <div class="personal-details">
+                <div>
+                    <label for="learnerName">Learner Name:</label>
+                    <input type="text" id="learnerName" required>
+                </div>
+                <div>
+                    <label for="learnerId">Learner ID:</label>
+                    <input type="text" id="learnerId" required>
+                </div>
+                <div>
+                    <label for="assessorName">Assessor Name:</label>
+                    <input type="text" id="assessorName" required>
+                </div>
+                <div>
+                    <label for="assessorId">Assessor ID:</label>
+                    <input type="text" id="assessorId" required>
+                </div>
+                <div>
+                    <label for="assessmentDate">Date of Assessment:</label>
+                    <input type="date" id="assessmentDate" value="2025-11-13" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>1. Observation Checklist</h2>
+            <div class="so" data-so="1">
+                <h3>Specific Outcome 1: Demonstrate Knowledge of the Functions of a Tracked Dozer</h3>
+                <div class="criteria" data-id="1_1">
+                    <h4>Assessment Criteria 1.1: The main function of the Tracked Dozer is explained in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Explain primary purpose: To push, rip, and level large volumes of earth or rock on construction sites, using the blade for dozing and tracks for traction in rough terrain.</li>
+                            <li><input type="checkbox" class="step-check"> Identify key attachments: Semi-U blade (e.g., 4.5m width, 15m³ capacity), single-shank ripper for breaking hardpan; ensure tilt cylinder is functional for precise grading.</li>
+                            <li><input type="checkbox" class="step-check"> Describe operational limits: Max blade pitch 25°, ground speed 12km/h; reference load charts to avoid track slip on slopes over 15%.</li>
+                            <li><input type="checkbox" class="step-check"> Emphasize safety integration: Functions must follow site rules to prevent blade strikes or burial in unstable material during ripping.</li>
+                            <li><input type="checkbox" class="step-check"> Demonstrate on machine: Point to blade hydraulics and ripper beam to show dozing cycle without engine, noting pin wear indicators.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_1">Comments / Remarks:</label>
+                        <textarea id="comments1_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="1_2">
+                    <h4>Assessment Criteria 1.2: Tracked Dozer operation procedures are listed, and the main functions of all major components are explained in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> List procedures: Pre-operation inspection, blade positioning, ripping sequence, post-shift cleanup; adhere to sequence for efficient material movement without rework.</li>
+                            <li><input type="checkbox" class="step-check"> Explain engine: Turbo-diesel (e.g., 400hp) for track power; check oil (SAE 15W-40) and coolant to sustain high-load dozing.</li>
+                            <li><input type="checkbox" class="step-check"> Explain fuel system: 600L tank with dual filters; inspect for contamination to avoid injector clogs during extended shifts.</li>
+                            <li><input type="checkbox" class="step-check"> Explain hydraulic system: Controls blade/ripper (250 bar); monitor level (ISO VG 46) and hoses for leaks to ensure responsive tilting.</li>
+                            <li><input type="checkbox" class="step-check"> Explain electrical system: Dash alarms and starter; verify battery (24V) and alternator for reliable operation in remote areas.</li>
+                            <li><input type="checkbox" class="step-check"> Explain track/final drive: Powers movement; lubricate idlers (MOLYTEX EP2), check tension (30-40mm sag) for minimal wear.</li>
+                            <li><input type="checkbox" class="step-check"> Explain cooling system: Radiator for engine/ hydraulics; clean debris daily to prevent overheating during ripping in dry conditions.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_2">Comments / Remarks:</label>
+                        <textarea id="comments1_2"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_2" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_2"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="1_3">
+                    <h4>Assessment Criteria 1.3: Maximum operating capacities of the Tracked Dozer are described in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Locate capacity plate: On cab post, showing max drawbar pull (e.g., 200kN) to determine pushing limits safely.</li>
+                            <li><input type="checkbox" class="step-check"> Describe blade capacity: Carry 12m³ loose material; adjust for density (e.g., 1.8 t/m³ rock) to avoid overload.</li>
+                            <li><input type="checkbox" class="step-check"> Explain performance charts: Ripper penetration 0.6m max; factor ground conditions for torque (80% rated).</li>
+                            <li><input type="checkbox" class="step-check"> On-site verification: Read chart for current setup, e.g., ripper down for hardpan, ensuring no exceedance of track pressure (50kPa).</li>
+                            <li><input type="checkbox" class="step-check"> Transport limits: Gross weight 40 tons; lower blade for rail/low-loader compliance.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_3">Comments / Remarks:</label>
+                        <textarea id="comments1_3"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_3" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_3"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="2">
+                <h3>Specific Outcome 2: Start and Shut Down Tracked Dozer</h3>
+                <div class="criteria" data-id="2_1">
+                    <h4>Assessment Criteria 2.1: Pre-operational checks are carried out according to the daily inspection checklist.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Don PPE: Hard hat, high-vis, steel boots, gloves; verify condition to guard against flying debris during ripping.</li>
+                            <li><input type="checkbox" class="step-check"> Visual inspection: Examine tracks for damage (sprocket wear <20%), blade edges, ripper shanks; check for oil leaks on undercarriage.</li>
+                            <li><input type="checkbox" class="step-check"> Engine bay: Oil/fuel/coolant levels; inspect turbo hoses and air cleaner for dust to prevent engine surge.</li>
+                            <li><input type="checkbox" class="step-check"> Hydraulics/tracks: Grease blade pins (MOLYTEX EP2), adjust track tension (35mm sag); test final drive mounts.</li>
+                            <li><input type="checkbox" class="step-check"> Cab/controls: Seatbelt, horn, gauges; ensure ROPS is certified for rollover protection.</li>
+                            <li><input type="checkbox" class="step-check"> Sign checklist: Document defects (e.g., Class A ripper tooth missing), tag machine if unsafe.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments2_1">Comments / Remarks:</label>
+                        <textarea id="comments2_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets2_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets2_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="2_2">
+                    <h4>Assessment Criteria 2.2: Start-up and shutdown procedures are followed according to manufacturer’s specifications and worksite procedures.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Mount cab safely, adjust mirrors; clear zone, sound horn and activate beacon to signal movement.</li>
+                            <li><input type="checkbox" class="step-check"> Start engine: Key on, monitor pre-lube, idle 5 min; test blade lift to full height without creep.</li>
+                            <li><input type="checkbox" class="step-check"> Warm-up: Engage low gear, check track response; verify ripper penetration at idle.</li>
+                            <li><input type="checkbox" class="step-check"> Shutdown: Park level, lower blade/ripper fully, idle 5 min; apply parking brake, key off, remove keys.</li>
+                            <li><input type="checkbox" class="step-check"> Post-shutdown: Install stop blocks on slopes, lock cab, report hours/fuel; clean cab from dust.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments2_2">Comments / Remarks:</label>
+                        <textarea id="comments2_2"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets2_2" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets2_2"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="3">
+                <h3>Specific Outcome 3: Operate Tracked Dozer</h3>
+                <div class="criteria" data-id="3_1">
+                    <h4>Assessment Criteria 3.1: Tracked Dozer is operated safely, minimizing hazards in accordance with statutory requirements.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Site setup: Survey for utilities/banks, barricade area; position dozer facing downhill for stability on cuts.</li>
+                            <li><input type="checkbox" class="step-check"> Dozing technique: Pitch blade 10° up, push in straight lines (50m passes); feather tracks to avoid side-slip.</li>
+                            <li><input type="checkbox" class="step-check"> Ripping: Lower shank gradually to 0.5m depth; back-drag spoil to fill low spots, maintaining 3m edge distance.</li>
+                            <li><input type="checkbox" class="step-check"> Hazard control: Slow to 5km/h near obstacles, use spotter; comply with MHSA for dust wetting and noise (90dB).</li>
+                            <li><input type="checkbox" class="step-check"> Travel: Retract ripper, max 10km/h on roads; check path for soft spots to prevent bogging.</li>
+                            <li><input type="checkbox" class="step-check"> Emergency: If track derail, shutdown and chock; signal for winch recovery without digging out.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments3_1">Comments / Remarks:</label>
+                        <textarea id="comments3_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets3_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets3_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="3_2">
+                    <h4>Assessment Criteria 3.2: Statutory requirements including relevant codes of practice and safety/health/environment legislation are listed and explained.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Obey signs: Ensures OHS Act compliance for hazard zones, preventing unauthorized entry during dozing.</li>
+                            <li><input type="checkbox" class="step-check"> Use established roads: Aligns with ISO 14001 to minimize soil disturbance and erosion control.</li>
+                            <li><input type="checkbox" class="step-check"> Keep left unless overtaking: Follows MHSA traffic protocol for safe convoy on haul paths.</li>
+                            <li><input type="checkbox" class="step-check"> Adhere to speed (10km/h): Reduces momentum risks per mobile equipment codes.</li>
+                            <li><input type="checkbox" class="step-check"> Maintain 40m distance: Allows stopping buffer as per safety standards for heavy dozers.</li>
+                            <li><input type="checkbox" class="step-check"> Yield to loaded vehicles: Prioritizes stability under load management guidelines.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments3_2">Comments / Remarks:</label>
+                        <textarea id="comments3_2"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets3_2" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets3_2"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="4">
+                <h3>Specific Outcome 4: Document Tracked Dozer Use</h3>
+                <div class="criteria" data-id="4_1">
+                    <h4>Assessment Criteria 4.1: Tracked Dozer use is documented according to worksite procedures, including logs and reports.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Record metrics: Log cubic meters pushed (e.g., 500m³), ripper passes, fuel used in shift logbook.</li>
+                            <li><input type="checkbox" class="step-check"> Report defects: Note Class B issues (e.g., blade tilt lag), actions, supervisor approval.</li>
+                            <li><input type="checkbox" class="step-check"> Maintenance entries: Update checklist with track adjustments, grease points; file for compliance audits.</li>
+                            <li><input type="checkbox" class="step-check"> Incident details: Document near-misses (e.g., bank slide), witnesses, mitigations per OHS Act.</li>
+                            <li><input type="checkbox" class="step-check"> Handover: Inform relief on status, e.g., "Ripper tooth replaced, 60% fuel, soft spot marked."</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments4_1">Comments / Remarks:</label>
+                        <textarea id="comments4_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets4_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets4_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. Oral Knowledge Questionnaire (Essential Embedded Knowledge)</h2>
+            <div class="question" data-id="ek1">
+                <h3>Question 1: Explain the main function of the Tracked Dozer machine (Model Answer: To push, rip, and level large volumes of earth or rock for site preparation)</h3>
+                <div class="comments">
+                    <label for="response1">Learner’s Recorded Response:</label>
+                    <textarea id="response1"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets1" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets1"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek2">
+                <h3>Question 2: List the Tracked Dozer operation procedures and explain the main functions of all major components (Model Answer: Engine – Power tracks/blade; Fuel system – Combustion supply; Hydraulic – Blade/ripper control; Electrical – Gauges/lights; Track system – Traction/movement; Cooling – Overheat prevention; Proximity – Surroundings awareness)</h3>
+                <div class="comments">
+                    <label for="response2">Learner’s Recorded Response:</label>
+                    <textarea id="response2"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets2" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets2"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek3">
+                <h3>Question 3: What is the maximum operating capacities of the designed Tracked Dozer capabilities (Model Answer: E.g., 200kN drawbar pull, 12m³ blade; Show plate on cab; Demonstrate chart for 15% slope; Point to kN/m³ indicators)</h3>
+                <div class="comments">
+                    <label for="response3">Learner’s Recorded Response:</label>
+                    <textarea id="response3"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets3" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets3"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek4">
+                <h3>Question 4: Describe the corrective action you would take once you have received a warning i.e. EMS (Model Answer: Stop/idle 5 min; Air loss – Brake failure, stop/lower; Transmission oil – Overload/leak, slow/report; Temperature – Seize risk, stop/report; Engine oil – Abnormal, shutdown; Hydraulic low – Stop/lower/report; Water temp – Cool/report; Fuel – Refuel/support call)</h3>
+                <div class="comments">
+                    <label for="response4">Learner’s Recorded Response:</label>
+                    <textarea id="response4"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets4" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets4"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek5">
+                <h3>Question 5: List relevant Worksite Procedures you must follow at the start of your shift (Model Answer: PPE: Boots/overall/hearing/vest/hat/shoes; Walk-around: Tracks/blade/ripper leaks; Hood: Oil/battery/water/fuel; Cab: Loose/seat; Start: Idle 5 min/gauges; Blocks off, clear under, alarm; Brake test; Blade lift; Alarm/reverse; Shutdown: Park level, lower all, neutral, idle 5 min, brake off, lock/exit/blocks/handover)</h3>
+                <div class="comments">
+                    <label for="response5">Learner’s Recorded Response:</label>
+                    <textarea id="response5"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets5" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets5"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek6">
+                <h3>Question 6: List 6 aspects relating to the Statutory requirements including the relevant Code of practice and Safety and Health environment legislation (Model Answer: Signs obey – Safety; Roads established – ISO 14000; Left keep – Road act; Speed limits – Control; 40m distance – Avoid accidents; Yield laden – Passing space; No cables – Shock; No squash barricades – Visibility; Pedestrians watch – Injury avoid; Seatbelt – Act; Animals alert – Environment; No closed areas – Damage prevent)</h3>
+                <div class="comments">
+                    <label for="response6">Learner’s Recorded Response:</label>
+                    <textarea id="response6"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets6" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets6"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. Overall Assessment Summary</h2>
+            <div class="assessment-summary">
+                <div class="competence-score">
+                    <h4>Auto-Calculated Competence Score: <span id="score-display">0%</span> (based on 12 criteria)</h4>
+                    <p id="score-advice">Score Advice: Select overall assessment below.</p>
+                </div>
+                <div class="thresholds">
+                    <div>
+                        <label for="marginalThreshold">Marginal Threshold (%): </label>
+                        <input type="number" id="marginalThreshold" value="60" min="0" max="100" onchange="calculateScore()">
+                    </div>
+                    <div>
+                        <label for="competentThreshold">Competent Threshold (%): </label>
+                        <input type="number" id="competentThreshold" value="80" min="0" max="100" onchange="calculateScore()">
+                    </div>
+                </div>
+                <div class="assessment">
+                    <label><input type="radio" name="overall" value="competent" required> Competent</label>
+                    <label><input type="radio" name="overall" value="notyet"> Not Yet Competent</label>
+                </div>
+                <div class="comments">
+                    <label for="summaryComments">Overall Summary Comments:</label>
+                    <textarea id="summaryComments"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Signatures for Authenticity</h2>
+            <div class="signature">
+                <div>
+                    <h3>Learner Signature</h3>
+                    <canvas id="learnerSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="learnerSigText" placeholder="Typed Name">
+                </div>
+                <div>
+                    <h3>Assessor Signature</h3>
+                    <canvas id="assessorSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="assessorSigText" placeholder="Typed Name">
+                </div>
+                <div>
+                    <h3>Moderator Signature</h3>
+                    <canvas id="moderatorSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="moderatorSigText" placeholder="Typed Name">
+                    <label for="moderationDate">Date:</label>
+                    <input type="date" id="moderationDate" value="2025-11-13" required>
+                    <div class="moderator-comments">
+                        <label for="moderatorComments">Moderator Comments:</label>
+                        <textarea id="moderatorComments"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="validateAndPrint()">Print / Save as PDF</button>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mutual exclusive checkboxes
+            const assessments = document.querySelectorAll('.assessment');
+            assessments.forEach(ass => {
+                const meets = ass.querySelector('input[name^="meets"]');
+                const notmeets = ass.querySelector('input[name^="notmeets"]');
+                if (meets && notmeets) {
+                    [meets, notmeets].forEach(cb => {
+                        cb.addEventListener('change', () => {
+                            if (cb.checked) {
+                                meets.checked = (cb === meets);
+                                notmeets.checked = (cb === notmeets);
+                            }
+                            calculateScore();
+                        });
+                    });
+                }
+            });
+
+            // Auto-calculate competence score
+            function calculateScore() {
+                const scoreCheckboxes = document.querySelectorAll('.score-checkbox:checked');
+                const totalCriteria = document.querySelectorAll('.score-checkbox').length;
+                const score = totalCriteria > 0 ? Math.round((scoreCheckboxes.length / totalCriteria) * 100) : 0;
+                document.getElementById('score-display').textContent = score + '%';
+
+                const marginalThreshold = parseInt(document.getElementById('marginalThreshold').value) || 60;
+                const competentThreshold = parseInt(document.getElementById('competentThreshold').value) || 80;
+                const advice = document.getElementById('score-advice');
+
+                let adviceText = '';
+                let overallValue = '';
+
+                if (score >= competentThreshold) {
+                    adviceText = `Score Advice: Competent (>= ${competentThreshold}%).`;
+                    overallValue = 'competent';
+                } else if (score >= marginalThreshold) {
+                    adviceText = `Score Advice: Marginal (${marginalThreshold}-${competentThreshold}%) - Recommend additional training.`;
+                } else {
+                    adviceText = `Score Advice: Not Yet Competent (< ${marginalThreshold}%) - Requires further assessment.`;
+                    overallValue = 'notyet';
+                }
+
+                advice.textContent = adviceText;
+
+                // Auto-set overall radio if applicable
+                const overallRadio = document.querySelector(`input[name="overall"][value="${overallValue}"]`);
+                if (overallRadio && overallValue) {
+                    overallRadio.checked = true;
+                }
+            }
+
+            // Enhanced Signature canvases
+            function drawOnCanvas(canvasId) {
+                const canvas = document.getElementById(canvasId);
+                const ctx = canvas.getContext('2d');
+
+                // High DPI support for accuracy
+                const dpr = window.devicePixelRatio || 1;
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                let drawing = false;
+                let lastX = 0;
+                let lastY = 0;
+
+                function getCoords(e) {
+                    const boundingRect = canvas.getBoundingClientRect();
+                    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+                    const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+                    return {
+                        x: (clientX - boundingRect.left) * (canvas.width / boundingRect.width),
+                        y: (clientY - boundingRect.top) * (canvas.height / boundingRect.height)
+                    };
+                }
+
+                function startDrawing(e) {
+                    e.preventDefault();
+                    drawing = true;
+                    const coords = getCoords(e);
+                    ctx.beginPath();
+                    ctx.moveTo(coords.x, coords.y);
+                    lastX = coords.x;
+                    lastY = coords.y;
+                    canvas.addEventListener('mousemove', draw);
+                    canvas.addEventListener('touchmove', draw);
+                    document.addEventListener('mouseup', stopDrawing);
+                    document.addEventListener('touchend', stopDrawing);
+                }
+
+                function draw(e) {
+                    if (!drawing) return;
+                    e.preventDefault();
+                    const coords = getCoords(e);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#000';
+
+                    // For smoother lines, use quadratic curve
+                    ctx.lineTo((lastX + coords.x) / 2, (lastY + coords.y) / 2);
+                    ctx.lineTo(coords.x, coords.y);
+                    ctx.stroke();
+                    lastX = coords.x;
+                    lastY = coords.y;
+                }
+
+                function stopDrawing(e) {
+                    if (drawing) {
+                        drawing = false;
+                        ctx.closePath();
+                        canvas.removeEventListener('mousemove', draw);
+                        canvas.removeEventListener('touchmove', draw);
+                        document.removeEventListener('mouseup', stopDrawing);
+                        document.removeEventListener('touchend', stopDrawing);
+                    }
+                }
+
+                // Mouse events
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', (e) => { if (drawing) draw(e); });
+                document.addEventListener('mouseup', stopDrawing);
+
+                // Touch events with preventDefault for no scroll
+                canvas.addEventListener('touchstart', startDrawing, { passive: false });
+                canvas.addEventListener('touchmove', draw, { passive: false });
+                canvas.addEventListener('touchend', stopDrawing, { passive: false });
+                canvas.addEventListener('touchcancel', stopDrawing, { passive: false });
+
+                // Clear on double-click
+                canvas.addEventListener('dblclick', () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                });
+
+                // Resize handler for dynamic sizing
+                window.addEventListener('resize', () => {
+                    const rect = canvas.getBoundingClientRect();
+                    canvas.width = rect.width * dpr;
+                    canvas.height = rect.height * dpr;
+                    ctx.scale(dpr, dpr);
+                });
+            }
+
+            drawOnCanvas('learnerSig');
+            drawOnCanvas('assessorSig');
+            drawOnCanvas('moderatorSig');
+        });
+
+        function validateAndPrint() {
+            const form = document.getElementById('checklistForm');
+            const overallRadios = document.querySelectorAll('input[name="overall"]');
+            const overallChecked = Array.from(overallRadios).some(radio => radio.checked);
+            if (!form.checkValidity() || !overallChecked) {
+                alert('Complete required fields, including overall assessment.');
+                return;
+            }
+            window.print();
+        }
+    </script>
+</body>
+</html>

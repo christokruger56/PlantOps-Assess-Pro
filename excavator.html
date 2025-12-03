@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excavator Observation Checklist - Assessment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            background-color: #f5f5f5;
+            line-height: 1.4;
+        }
+        .section {
+            background-color: #fafafa;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        h1, h2, h3, h4, h5 {
+            border-bottom: 2px solid #3498db;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        h1 { text-align: center; }
+        .personal-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="date"], input[type="number"], textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="number"] {
+            width: 80px;
+        }
+        textarea {
+            height: 60px;
+            resize: vertical;
+        }
+        .sop {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin: 10px 0;
+        }
+        .sop ol {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .sop li {
+            word-wrap: break-word;
+            margin-bottom: 5px;
+        }
+        .assessment {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .assessment label {
+            display: flex;
+            align-items: center;
+        }
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 10px;
+        }
+        .signature {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .assessment-summary {
+            display: block;
+        }
+        .competence-score {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e8f5e8;
+            border-left: 4px solid #28a745;
+            border-radius: 4px;
+        }
+        .competence-score h4 {
+            margin: 0 0 5px 0;
+            color: #155724;
+        }
+        .thresholds {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            height: 100px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .so, .criteria, .question {
+            margin-bottom: 15px;
+        }
+        .moderator-comments {
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .personal-details, .signature, .thresholds {
+                grid-template-columns: 1fr;
+            }
+            input, button, textarea {
+                min-height: 44px;
+                font-size: 13px;
+            }
+            input[type="checkbox"], input[type="radio"] {
+                width: 18px;
+                height: 18px;
+            }
+            .assessment {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .assessment label {
+                display: block;
+            }
+            canvas {
+                height: 80px;
+            }
+        }
+        @media print {
+            body {
+                margin: 0;
+                background: white;
+                font-size: 12px;
+            }
+            .section {
+                box-shadow: none;
+                background: white;
+                margin: 5px 0;
+                padding: 8px;
+            }
+            button {
+                display: none;
+            }
+            canvas {
+                height: 60px !important;
+            }
+            h1, h2, h3, h4, h5 {
+                border-bottom: 1px solid #3498db;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="checklistForm">
+        <div class="section">
+            <h1>Observation Checklist for Excavator Operation</h1>
+            <p>Unit Standard: Operate an Excavator 116047 | NQF Level: 2 | Credits: 20</p>
+        </div>
+
+        <div class="section">
+            <h2>Personal Details</h2>
+            <div class="personal-details">
+                <div>
+                    <label for="learnerName">Learner Name:</label>
+                    <input type="text" id="learnerName" required>
+                </div>
+                <div>
+                    <label for="learnerId">Learner ID:</label>
+                    <input type="text" id="learnerId" required>
+                </div>
+                <div>
+                    <label for="assessorName">Assessor Name:</label>
+                    <input type="text" id="assessorName" required>
+                </div>
+                <div>
+                    <label for="assessorId">Assessor ID:</label>
+                    <input type="text" id="assessorId" required>
+                </div>
+                <div>
+                    <label for="assessmentDate">Date of Assessment:</label>
+                    <input type="date" id="assessmentDate" value="2025-11-13" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>1. Observation Checklist</h2>
+            <div class="so" data-so="1">
+                <h3>Specific Outcome 1: Demonstrate Knowledge of the Functions of a Excavator</h3>
+                <div class="criteria" data-id="1_1">
+                    <h4>Assessment Criteria 1.1: The main function of the Excavator is explained in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Explain the primary purpose: To excavate, dig trenches, load materials, and perform demolition tasks safely and efficiently on construction sites.</li>
+                            <li><input type="checkbox" class="step-check"> Identify key attachments: Bucket for digging (e.g., 0.5 m³ capacity), thumb for gripping, breaker for demolition; ensure compatibility with machine model.</li>
+                            <li><input type="checkbox" class="step-check"> Describe operational limits: Maximum dig depth (e.g., 5m), reach (e.g., 8m), and swing radius; reference load charts to avoid overload.</li>
+                            <li><input type="checkbox" class="step-check"> Highlight safety integration: Functions must align with site procedures to prevent tip-over or collisions during operation.</li>
+                            <li><input type="checkbox" class="step-check"> Demonstrate on machine: Point to cab controls and undercarriage to illustrate how functions are executed without starting engine.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_1">Comments / Remarks:</label>
+                        <textarea id="comments1_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="1_2">
+                    <h4>Assessment Criteria 1.2: Excavator operation procedures are listed, and the main functions of all major components are explained in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> List procedures: Pre-start inspection, safe start-up, controlled excavation, shutdown, and post-operation checks; emphasize sequence to ensure safety.</li>
+                            <li><input type="checkbox" class="step-check"> Explain engine: Provides power to hydraulic pumps and tracks; check oil level (e.g., SAE 15W-40) before operation to prevent failure.</li>
+                            <li><input type="checkbox" class="step-check"> Explain fuel system: Delivers diesel to engine; inspect for leaks and ensure clean filter to maintain combustion efficiency.</li>
+                            <li><input type="checkbox" class="step-check"> Explain hydraulic system: Powers boom, arm, bucket via cylinders; monitor pressure (e.g., 300 bar) and top-up with SAE 10W if low.</li>
+                            <li><input type="checkbox" class="step-check"> Explain electrical system: Supports lights, gauges, starter; check battery terminals and voltage (12V) for reliable operation.</li>
+                            <li><input type="checkbox" class="step-check"> Explain braking/swing system: Controls rotation and stopping; test swing brake to ensure no unintended movement.</li>
+                            <li><input type="checkbox" class="step-check"> Explain cooling system: Prevents overheating; inspect radiator for blockages and coolant level when cold.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_2">Comments / Remarks:</label>
+                        <textarea id="comments1_2"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_2" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_2"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="1_3">
+                    <h4>Assessment Criteria 1.3: Maximum operating capacities of the Excavator are described in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Locate capacity plate: On cab or boom, showing max load (e.g., 10 tons at 5m radius) to prevent structural failure.</li>
+                            <li><input type="checkbox" class="step-check"> Describe bucket capacity: E.g., 1.0 m³ heaped for standard dig; adjust for quick coupler if fitted.</li>
+                            <li><input type="checkbox" class="step-check"> Explain lift charts: Use for counterweight adjustments; never exceed 80% of rated capacity for safety margin.</li>
+                            <li><input type="checkbox" class="step-check"> Verify on-site: Demonstrate reading chart for current configuration, including dozer blade down for stability.</li>
+                            <li><input type="checkbox" class="step-check"> Note transport limits: E.g., total weight 25 tons; ensure compliance for low-loader hauling.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_3">Comments / Remarks:</label>
+                        <textarea id="comments1_3"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_3" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_3"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="2">
+                <h3>Specific Outcome 2: Start and Shut Down Excavator</h3>
+                <div class="criteria" data-id="2_1">
+                    <h4>Assessment Criteria 2.1: Pre-operational checks are carried out according to the daily inspection checklist.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Don PPE: Hard hat, safety boots, high-vis vest, gloves; inspect for damage to ensure protection during checks.</li>
+                            <li><input type="checkbox" class="step-check"> Visual walk-around: Check tracks for wear (26-35mm sag), leaks in hoses, and undercarriage for cracks; report Class A defects immediately.</li>
+                            <li><input type="checkbox" class="step-check"> Engine compartment: Verify oil (SAE 15W-40), fuel, coolant levels; clean air filter and check battery terminals/hold-downs.</li>
+                            <li><input type="checkbox" class="step-check"> Hydraulic and swing systems: Top-up hydraulic oil (SAE 10W), grease swing gear (MOLYTEX EP2), check pump mounts and couplings.</li>
+                            <li><input type="checkbox" class="step-check"> Final drives and tracks: Inspect oil levels (SAE 50), rollers/idlers for leaks, adjust tension; tighten loose bolts.</li>
+                            <li><input type="checkbox" class="step-check"> Attachments: Check bucket/tips for wear, wash fuel cap/gasket; complete checklist and sign before start-up.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments2_1">Comments / Remarks:</label>
+                        <textarea id="comments2_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets2_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets2_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="2_2">
+                    <h4>Assessment Criteria 2.2: Start-up and shutdown procedures are followed according to manufacturer’s specifications and worksite procedures.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Enter cab safely, adjust seat/mirrors; ensure no personnel nearby, sound horn to alert.</li>
+                            <li><input type="checkbox" class="step-check"> Start engine: Key on, check gauges (oil pressure, temp), idle 5 minutes; test controls for smooth response.</li>
+                            <li><input type="checkbox" class="step-check"> During operation: Monitor EMS warnings, maintain safe distance (40m), obey speed limits (10km/h off-road).</li>
+                            <li><input type="checkbox" class="step-check"> Shutdown: Park on level ground, lower boom/bucket, idle 5 minutes to cool, apply parking brake, switch off, exit with keys.</li>
+                            <li><input type="checkbox" class="step-check"> Post-shutdown: Install stop blocks, lock cab, report issues; wash machine if required.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments2_2">Comments / Remarks:</label>
+                        <textarea id="comments2_2"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets2_2" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets2_2"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="3">
+                <h3>Specific Outcome 3: Operate Excavator</h3>
+                <div class="criteria" data-id="3_1">
+                    <h4>Assessment Criteria 3.1: Excavator is operated safely, minimizing hazards in accordance with statutory requirements.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Site setup: Barricade area, check for underground utilities; position machine on firm ground with dozer blade down for stability.</li>
+                            <li><input type="checkbox" class="step-check"> Controlled digging: Swing slowly, bucket at 45° angle, excavate in layers to avoid collapse; maintain 3m clearance from edges.</li>
+                            <li><input type="checkbox" class="step-check"> Hazard minimization: Wear seatbelt, use rotating beacon; avoid overhead lines (min 5m clearance), monitor for pedestrians/animals.</li>
+                            <li><input type="checkbox" class="step-check"> Environmental compliance: Spill kits ready, no idling >5 min; adhere to MHSA and OHS Act for noise/vibration limits.</li>
+                            <li><input type="checkbox" class="step-check"> Emergency response: If tip-over risk, lower boom immediately; sound alarm for evacuations.</li>
+                            <li><input type="checkbox" class="step-check"> Travel mode: Retract outriggers, travel <10km/h, check path for obstacles.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments3_1">Comments / Remarks:</label>
+                        <textarea id="comments3_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets3_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets3_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="4">
+                <h3>Specific Outcome 4: Document Excavator Use</h3>
+                <div class="criteria" data-id="4_1">
+                    <h4>Assessment Criteria 4.1: Excavator use is documented according to worksite procedures, including logs and reports.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Log hours: Record start/stop times, fuel used (e.g., 20L), and tasks (e.g., 50m trench dug) in daily logbook.</li>
+                            <li><input type="checkbox" class="step-check"> Report defects: Note Class B/C issues (e.g., low hydraulic oil), actions taken, and supervisor sign-off.</li>
+                            <li><input type="checkbox" class="step-check"> Maintenance records: Update checklist with signatures; file for ETQA audits.</li>
+                            <li><input type="checkbox" class="step-check"> Incident reporting: If near-miss, document details, witnesses, and corrective measures per OHS Act.</li>
+                            <li><input type="checkbox" class="step-check"> End-of-shift handover: Brief next operator on status, e.g., "Fuel at 50%, minor leak reported."</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments4_1">Comments / Remarks:</label>
+                        <textarea id="comments4_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets4_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets4_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. Oral Knowledge Questionnaire (Essential Embedded Knowledge)</h2>
+            <div class="question" data-id="ek1">
+                <h3>Question 1: Explain the main function of the Excavator machine (Model Answer: To doze and rip material)</h3>
+                <div class="comments">
+                    <label for="response1">Learner’s Recorded Response:</label>
+                    <textarea id="response1"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets1" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets1"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek2">
+                <h3>Question 2: List the Excavator operation procedures and explain the main functions of all major components (Model Answer: Engine – To provide power to drive the Excavator; Fuel system – Provide fuel to engine for combustion; Hydraulic system – Provide pressure for hydraulic system / cylinders; Electrical system – Generate power for the electrical system e.g. Gauges, lights and batteries; Braking system – Slow down and stop vehicle; Cooling system – To cool engine, transmission and hydraulic system to prevent overheating; Proximity of other machines – Always be aware of your surroundings)</h3>
+                <div class="comments">
+                    <label for="response2">Learner’s Recorded Response:</label>
+                    <textarea id="response2"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets2" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets2"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek3">
+                <h3>Question 3: What is the maximum operating capacities of the designed Excavator capabilities (Model Answer: For example – a load 769 cannot load more than 777; Show me on your machine where you can see the max load you are permitted to load; Show me how you can determine what the max capacity is indicated; Learner must show the label which indicates the max kg and ton indicator)</h3>
+                <div class="comments">
+                    <label for="response3">Learner’s Recorded Response:</label>
+                    <textarea id="response3"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets3" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets3"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek4">
+                <h3>Question 4: List relevant Worksite Procedures you must follow at the start of your shift (Model Answer: Start up – Ensure you have the correct PPE: Boots / Overall / Hearing protection / Reflective vest / Hard hat / Safety shoes; Walk around check: Look and feel first on the carriage (bottom) section of your machine. Open the bonnet and check your * oil, battery, water and fuel levels. Move up to the cabby section and undergo the same check i.e. lose material, seating; Start up your engines and wait five minutes to check all your gauges (pressure points); Remove stop blocks (If appl); Ensure no person under the machine; Sound an alarm (either hooter or rev engine or whistle) to indicate movement; Check brakes by using the brake test ramp. (Procedure attached); Check implements lifted from ground; Sound the alarm again; Reverse the vehicle (where applicable); Shut down – Reverse into area; Ensure no other vehicles or items can be damaged; Lower Implements (if applicable); Place gear into neutral; Idle the machine for 5 minutes; Apply parking brakes; Switch off engine; Close all window; Exit and take keys; Close all doors and lock; Insert stop blocks (Where Applicable); Hand in keys)</h3>
+                <div class="comments">
+                    <label for="response4">Learner’s Recorded Response:</label>
+                    <textarea id="response4"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets4" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets4"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek5">
+                <h3>Question 5: List 6 aspects relating to the Statutory requirements including the relevant Code of practice and Safety and Health environment legislation (Model Answer: Obey all road signs – This ensure your safety as well as the safety of the machine and fellow workers; Keep on established roads – These are ISO 14000 which ensures safe travel and avoid damage to the environment; Keep left unless over taking - This rule will ensure that all parties on the mine adhere to the same government regulations and road acts; Adhere to speed limits – Ensure life of machine and control of vehicle; Keep safe following distance of at least 40 m or 5 lengths of your machine – To avoid damage and accidents; Give way to laden trucks – To keep on left hand side of road and leave enough space for other vehicles to pass; Do not drive over electric cables – This will ensure no electric shock or electrical damage to machine such as burns; Do not squash barricading drums – To ensure visibility; Look out for pedestrians at all times – To avoid injury or fatal accidents; Wear your seat belt at all times – To adhere to the road act; Be aware of the environment by being alert for small animals; Do not enter any closed off areas – To avoid damage to equipment and loose material)</h3>
+                <div class="comments">
+                    <label for="response5">Learner’s Recorded Response:</label>
+                    <textarea id="response5"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets5" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets5"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek6">
+                <h3>Question 6: Describe the ways to minimize the above mentioned hazards (Model Answer: As detailed in the main components explanation above.)</h3>
+                <div class="comments">
+                    <label for="response6">Learner’s Recorded Response:</label>
+                    <textarea id="response6"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets6" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets6"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek7">
+                <h3>Question 7: Describe the corrective action you would take once you have received a warning i.e. EMS (Model Answer: Immediate stop = allow machine to idle for five minutes to cool and then switch off. Warning devices: Air gauge – air loss which will result in component or brake failure. To correct you immediately stop machine / lower implements; Transmission oil – too high or too low. Slow down operation to determine engine has been over loaded. If not, then stop machine and report to Supervisor; Temperature – engine too hot which can result in over heating/seize of engine. Stop the machine and report; Engine oil – too high or too low. Stop immediately and cut engine and report; Hydraulic oil – too low. Stop operation – lower implements and stop machine and report; Water temp – engine is too hot / over heating – do not open. Stop immediately and report; Fuel – can you go or not. You call for support equipment to supply or report to Supervisor)</h3>
+                <div class="comments">
+                    <label for="response7">Learner’s Recorded Response:</label>
+                    <textarea id="response7"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets7" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets7"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. Overall Assessment Summary</h2>
+            <div class="assessment-summary">
+                <div class="competence-score">
+                    <h4>Auto-Calculated Competence Score: <span id="score-display">0%</span> (based on 13 criteria)</h4>
+                    <p id="score-advice">Score Advice: Select overall assessment below.</p>
+                </div>
+                <div class="thresholds">
+                    <div>
+                        <label for="marginalThreshold">Marginal Threshold (%): </label>
+                        <input type="number" id="marginalThreshold" value="60" min="0" max="100" onchange="calculateScore()">
+                    </div>
+                    <div>
+                        <label for="competentThreshold">Competent Threshold (%): </label>
+                        <input type="number" id="competentThreshold" value="80" min="0" max="100" onchange="calculateScore()">
+                    </div>
+                </div>
+                <div class="assessment">
+                    <label><input type="radio" name="overall" value="competent" required> Competent</label>
+                    <label><input type="radio" name="overall" value="notyet"> Not Yet Competent</label>
+                </div>
+                <div class="comments">
+                    <label for="summaryComments">Overall Summary Comments:</label>
+                    <textarea id="summaryComments"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Signatures for Authenticity</h2>
+            <div class="signature">
+                <div>
+                    <h3>Learner Signature</h3>
+                    <canvas id="learnerSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="learnerSigText" placeholder="Typed Name">
+                </div>
+                <div>
+                    <h3>Assessor Signature</h3>
+                    <canvas id="assessorSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="assessorSigText" placeholder="Typed Name">
+                </div>
+                <div>
+                    <h3>Moderator Signature</h3>
+                    <canvas id="moderatorSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="moderatorSigText" placeholder="Typed Name">
+                    <label for="moderationDate">Date:</label>
+                    <input type="date" id="moderationDate" value="2025-11-13" required>
+                    <div class="moderator-comments">
+                        <label for="moderatorComments">Moderator Comments:</label>
+                        <textarea id="moderatorComments"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="validateAndPrint()">Print / Save as PDF</button>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mutual exclusive checkboxes
+            const assessments = document.querySelectorAll('.assessment');
+            assessments.forEach(ass => {
+                const meets = ass.querySelector('input[name^="meets"]');
+                const notmeets = ass.querySelector('input[name^="notmeets"]');
+                if (meets && notmeets) {
+                    [meets, notmeets].forEach(cb => {
+                        cb.addEventListener('change', () => {
+                            if (cb.checked) {
+                                meets.checked = (cb === meets);
+                                notmeets.checked = (cb === notmeets);
+                            }
+                            calculateScore();
+                        });
+                    });
+                }
+            });
+
+            // Auto-calculate competence score
+            function calculateScore() {
+                const scoreCheckboxes = document.querySelectorAll('.score-checkbox:checked');
+                const totalCriteria = document.querySelectorAll('.score-checkbox').length;
+                const score = totalCriteria > 0 ? Math.round((scoreCheckboxes.length / totalCriteria) * 100) : 0;
+                document.getElementById('score-display').textContent = score + '%';
+
+                const marginalThreshold = parseInt(document.getElementById('marginalThreshold').value) || 60;
+                const competentThreshold = parseInt(document.getElementById('competentThreshold').value) || 80;
+                const advice = document.getElementById('score-advice');
+
+                let adviceText = '';
+                let overallValue = '';
+
+                if (score >= competentThreshold) {
+                    adviceText = `Score Advice: Competent (>= ${competentThreshold}%).`;
+                    overallValue = 'competent';
+                } else if (score >= marginalThreshold) {
+                    adviceText = `Score Advice: Marginal (${marginalThreshold}-${competentThreshold}%) - Recommend additional training.`;
+                } else {
+                    adviceText = `Score Advice: Not Yet Competent (< ${marginalThreshold}%) - Requires further assessment.`;
+                    overallValue = 'notyet';
+                }
+
+                advice.textContent = adviceText;
+
+                // Auto-set overall radio if applicable
+                const overallRadio = document.querySelector(`input[name="overall"][value="${overallValue}"]`);
+                if (overallRadio && overallValue) {
+                    overallRadio.checked = true;
+                }
+            }
+
+            // Enhanced Signature canvases
+            function drawOnCanvas(canvasId) {
+                const canvas = document.getElementById(canvasId);
+                const ctx = canvas.getContext('2d');
+
+                // High DPI support for accuracy
+                const dpr = window.devicePixelRatio || 1;
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                let drawing = false;
+                let lastX = 0;
+                let lastY = 0;
+
+                function getCoords(e) {
+                    const boundingRect = canvas.getBoundingClientRect();
+                    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+                    const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+                    return {
+                        x: (clientX - boundingRect.left) * (canvas.width / boundingRect.width),
+                        y: (clientY - boundingRect.top) * (canvas.height / boundingRect.height)
+                    };
+                }
+
+                function startDrawing(e) {
+                    e.preventDefault();
+                    drawing = true;
+                    const coords = getCoords(e);
+                    ctx.beginPath();
+                    ctx.moveTo(coords.x, coords.y);
+                    lastX = coords.x;
+                    lastY = coords.y;
+                    canvas.addEventListener('mousemove', draw);
+                    canvas.addEventListener('touchmove', draw);
+                    document.addEventListener('mouseup', stopDrawing);
+                    document.addEventListener('touchend', stopDrawing);
+                }
+
+                function draw(e) {
+                    if (!drawing) return;
+                    e.preventDefault();
+                    const coords = getCoords(e);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#000';
+
+                    // For smoother lines, use quadratic curve
+                    ctx.lineTo((lastX + coords.x) / 2, (lastY + coords.y) / 2);
+                    ctx.lineTo(coords.x, coords.y);
+                    ctx.stroke();
+                    lastX = coords.x;
+                    lastY = coords.y;
+                }
+
+                function stopDrawing(e) {
+                    if (drawing) {
+                        drawing = false;
+                        ctx.closePath();
+                        canvas.removeEventListener('mousemove', draw);
+                        canvas.removeEventListener('touchmove', draw);
+                        document.removeEventListener('mouseup', stopDrawing);
+                        document.removeEventListener('touchend', stopDrawing);
+                    }
+                }
+
+                // Mouse events
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', (e) => { if (drawing) draw(e); });
+                document.addEventListener('mouseup', stopDrawing);
+
+                // Touch events with preventDefault for no scroll
+                canvas.addEventListener('touchstart', startDrawing, { passive: false });
+                canvas.addEventListener('touchmove', draw, { passive: false });
+                canvas.addEventListener('touchend', stopDrawing, { passive: false });
+                canvas.addEventListener('touchcancel', stopDrawing, { passive: false });
+
+                // Clear on double-click
+                canvas.addEventListener('dblclick', () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                });
+
+                // Resize handler for dynamic sizing
+                window.addEventListener('resize', () => {
+                    const rect = canvas.getBoundingClientRect();
+                    canvas.width = rect.width * dpr;
+                    canvas.height = rect.height * dpr;
+                    ctx.scale(dpr, dpr);
+                });
+            }
+
+            drawOnCanvas('learnerSig');
+            drawOnCanvas('assessorSig');
+            drawOnCanvas('moderatorSig');
+        });
+
+        function validateAndPrint() {
+            const form = document.getElementById('checklistForm');
+            const overallRadios = document.querySelectorAll('input[name="overall"]');
+            const overallChecked = Array.from(overallRadios).some(radio => radio.checked);
+            if (!form.checkValidity() || !overallChecked) {
+                alert('Complete required fields, including overall assessment.');
+                return;
+            }
+            window.print();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rigid Body Dump Truck Observation Checklist - Assessment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 10px;
+            background-color: #f5f5f5;
+            line-height: 1.4;
+        }
+        .section {
+            background-color: #fafafa;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            page-break-inside: avoid;
+        }
+        h1, h2, h3, h4, h5 {
+            border-bottom: 2px solid #3498db;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        h1 { text-align: center; }
+        .personal-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="date"], input[type="number"], textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="number"] {
+            width: 80px;
+        }
+        textarea {
+            height: 60px;
+            resize: vertical;
+        }
+        .sop {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin: 10px 0;
+        }
+        .sop ol {
+            padding-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .sop li {
+            word-wrap: break-word;
+            margin-bottom: 5px;
+        }
+        .assessment {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .assessment label {
+            display: flex;
+            align-items: center;
+        }
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 10px;
+        }
+        .signature {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .assessment-summary {
+            display: block;
+        }
+        .competence-score {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e8f5e8;
+            border-left: 4px solid #28a745;
+            border-radius: 4px;
+        }
+        .competence-score h4 {
+            margin: 0 0 5px 0;
+            color: #155724;
+        }
+        .thresholds {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            height: 100px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .so, .criteria, .question {
+            margin-bottom: 15px;
+        }
+        .moderator-comments {
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+                padding: 10px;
+            }
+            .personal-details, .signature, .thresholds {
+                grid-template-columns: 1fr;
+            }
+            input, button, textarea {
+                min-height: 44px;
+                font-size: 13px;
+            }
+            input[type="checkbox"], input[type="radio"] {
+                width: 18px;
+                height: 18px;
+            }
+            .assessment {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .assessment label {
+                display: block;
+            }
+            canvas {
+                height: 80px;
+            }
+        }
+        @media print {
+            body {
+                margin: 0;
+                background: white;
+                font-size: 12px;
+            }
+            .section {
+                box-shadow: none;
+                background: white;
+                margin: 5px 0;
+                padding: 8px;
+            }
+            button {
+                display: none;
+            }
+            canvas {
+                height: 60px !important;
+            }
+            h1, h2, h3, h4, h5 {
+                border-bottom: 1px solid #3498db;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="checklistForm">
+        <div class="section">
+            <h1>Observation Checklist for Rigid Body Dump Truck Operation</h1>
+            <p>Unit Standard: Operate a Rigid Body Dump Truck 116097 | NQF Level: 2 | Credits: 16</p>
+        </div>
+
+        <div class="section">
+            <h2>Personal Details</h2>
+            <div class="personal-details">
+                <div>
+                    <label for="learnerName">Learner Name:</label>
+                    <input type="text" id="learnerName" required>
+                </div>
+                <div>
+                    <label for="learnerId">Learner ID:</label>
+                    <input type="text" id="learnerId" required>
+                </div>
+                <div>
+                    <label for="assessorName">Assessor Name:</label>
+                    <input type="text" id="assessorName" required>
+                </div>
+                <div>
+                    <label for="assessorId">Assessor ID:</label>
+                    <input type="text" id="assessorId" required>
+                </div>
+                <div>
+                    <label for="assessmentDate">Date of Assessment:</label>
+                    <input type="date" id="assessmentDate" value="2025-11-13" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>1. Observation Checklist</h2>
+            <div class="so" data-so="1">
+                <h3>Specific Outcome 1: Demonstrate Knowledge of the Functions of a Rigid Body Dump Truck</h3>
+                <div class="criteria" data-id="1_1">
+                    <h4>Assessment Criteria 1.1: The main function of the Rigid Body Dump Truck is explained in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Explain primary purpose: To haul and dump bulk materials such as overburden or ore safely on mining or construction sites, utilizing the rigid chassis for stability on haul roads.</li>
+                            <li><input type="checkbox" class="step-check"> Identify key features: Tipping body (e.g., 50-ton capacity), exhaust brake for controlled descent; ensure hoist cylinder is secured to prevent unintended dumps.</li>
+                            <li><input type="checkbox" class="step-check"> Describe limits: Max payload (e.g., 40 tons), ground clearance (0.8m); reference charts to avoid overload tipping on grades up to 10%.</li>
+                            <li><input type="checkbox" class="step-check"> Integrate safety: Functions comply with site protocols to prevent spills during tipping or collisions in convoy operations.</li>
+                            <li><input type="checkbox" class="step-check"> Visual demo: Point to cab controls and body to illustrate load cycle without engine start, emphasizing tailgate latch verification.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_1">Comments / Remarks:</label>
+                        <textarea id="comments1_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="1_2">
+                    <h4>Assessment Criteria 1.2: Rigid Body Dump Truck operation procedures are listed, and the main functions of all major components are explained in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> List procedures: Pre-trip inspection, loading alignment, haul route adherence, safe dumping, post-trip log; sequence to ensure no overload or route deviations.</li>
+                            <li><input type="checkbox" class="step-check"> Explain engine: High-torque diesel (e.g., 500hp) for hill climbs; check oil (SAE 15W-40) and air filter to prevent power loss.</li>
+                            <li><input type="checkbox" class="step-check"> Explain fuel system: Dual tanks (1000L total); inspect for leaks and sediment to maintain fuel flow during long hauls.</li>
+                            <li><input type="checkbox" class="step-check"> Explain hydraulic/hoist system: Tips body (300 bar pressure); monitor fluid (ISO VG 46) and rams for safe, controlled dumps.</li>
+                            <li><input type="checkbox" class="step-check"> Explain electrical system: Dash indicators, retarder activation; test battery (24V) and lights for night operations.</li>
+                            <li><input type="checkbox" class="step-check"> Explain braking/retarder: Secondary exhaust brake for descents; calibrate service brakes for 5% grade stops without fade.</li>
+                            <li><input type="checkbox" class="step-check"> Explain cooling system: Large radiator for engine/transmission; flush weekly to avoid overheating in hot climates.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_2">Comments / Remarks:</label>
+                        <textarea id="comments1_2"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_2" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_2"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="1_3">
+                    <h4>Assessment Criteria 1.3: Maximum operating capacities of the Rigid Body Dump Truck are described in accordance with manufacturer’s specifications.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Locate capacity plate: On door frame, specifying GVW (e.g., 90 tons) to guide loading scales accurately.</li>
+                            <li><input type="checkbox" class="step-check"> Describe body capacity: Heaped 45 m³ for ore; derate 10% for sticky materials to prevent carryback.</li>
+                            <li><input type="checkbox" class="step-check"> Explain load charts: Torque limits at 8% grade; maintain 80% payload for safety margin.</li>
+                            <li><input type="checkbox" class="step-check"> On-site verify: Weigh load, adjust for tire pressure (6 bar) to ensure even distribution.</li>
+                            <li><input type="checkbox" class="step-check"> Transport specs: Axle loads compliant with road regs; lower body for low-bed trailer moves.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments1_3">Comments / Remarks:</label>
+                        <textarea id="comments1_3"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets1_3" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets1_3"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="2">
+                <h3>Specific Outcome 2: Start and Shut Down Rigid Body Dump Truck</h3>
+                <div class="criteria" data-id="2_1">
+                    <h4>Assessment Criteria 2.1: Pre-operational checks are carried out according to the daily inspection checklist.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Don PPE: Hard hat, hi-vis, steel boots, gloves; check for tears to protect from dust/debris during walks.</li>
+                            <li><input type="checkbox" class="step-check"> Walk-around: Inspect tires (tread min 20mm), body hinges for cracks, lights/mirrors; scan underbody for leaks.</li>
+                            <li><input type="checkbox" class="step-check"> Engine compartment: Oil/fuel/coolant levels; clean intake, check fan belts for tension.</li>
+                            <li><input type="checkbox" class="step-check"> Cab: Seatbelt, horn, gauges test; verify retarder switch and hoist lockout.</li>
+                            <li><input type="checkbox" class="step-check"> Brakes/undercarriage: Air pressure (8 bar), pads thickness; complete/sign checklist, lockout if defects.</li>
+                            <li><input type="checkbox" class="step-check"> Tailgate: Ensure latched, no damage; report overload risks from prior shift.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments2_1">Comments / Remarks:</label>
+                        <textarea id="comments2_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets2_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets2_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="2_2">
+                    <h4>Assessment Criteria 2.2: Start-up and shutdown procedures are followed according to manufacturer’s specifications and worksite procedures.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Enter cab safely, buckle up; clear area, sound horn and flash lights to warn spotters.</li>
+                            <li><input type="checkbox" class="step-check"> Start sequence: Key on, build air pressure (120 psi), idle 3 min; test parking brake hold.</li>
+                            <li><input type="checkbox" class="step-check"> Warm-up: Engage retarder, rev to 1200 RPM; check no unusual noises before moving.</li>
+                            <li><input type="checkbox" class="step-check"> Shutdown: Park designated, lower body fully, idle 5 min to cool turbo; apply brakes, key off.</li>
+                            <li><input type="checkbox" class="step-check"> Post: Chock wheels if slope, lock cab, log mileage; handover to next operator.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments2_2">Comments / Remarks:</label>
+                        <textarea id="comments2_2"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets2_2" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets2_2"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="3">
+                <h3>Specific Outcome 3: Operate Rigid Body Dump Truck</h3>
+                <div class="criteria" data-id="3_1">
+                    <h4>Assessment Criteria 3.1: Rigid Body Dump Truck is operated safely, minimizing hazards in accordance with statutory requirements.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Route check: Confirm haul road condition, signage; position at loader with 3m clearance from edge.</li>
+                            <li><input type="checkbox" class="step-check"> Loading: Align under chute, signal spotter; stop hoist if overload detected by scales.</li>
+                            <li><input type="checkbox" class="step-check"> Haul: Accelerate gradually to 40km/h, use retarder on downs; maintain 50m convoy spacing.</li>
+                            <li><input type="checkbox" class="step-check"> Dumping: Approach tip head slowly, raise body fully; back away after tailgate opens, check for spillage.</li>
+                            <li><input type="checkbox" class="step-check"> Hazard control: Beacon on, avoid wet patches; adhere to MHSA for dust suppression and speed limits.</li>
+                            <li><input type="checkbox" class="step-check"> Emergency: If brake fade, use escape ramp; activate kill switch for fires.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments3_1">Comments / Remarks:</label>
+                        <textarea id="comments3_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets3_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets3_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+                <div class="criteria" data-id="3_7">
+                    <h4>Assessment Criteria 3.7: Statutory requirements including relevant codes of practice and safety/health/environment legislation are listed and explained.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Obey signs: Aligns with OHS Act for hazard awareness and collision avoidance on multi-lane roads.</li>
+                            <li><input type="checkbox" class="step-check"> Established roads: Supports ISO 14001 by reducing erosion and fuel waste off-route.</li>
+                            <li><input type="checkbox" class="step-check"> Keep left/overtaking: Ensures MHSA traffic rules for safe passing without blind-spot risks.</li>
+                            <li><input type="checkbox" class="step-check"> Speed limits (40km/h): Minimizes rollover per equipment codes, enhancing control.</li>
+                            <li><input type="checkbox" class="step-check"> 50m distance: Provides reaction buffer as per safety standards for large vehicles.</li>
+                            <li><input type="checkbox" class="step-check"> Yield laden: Prioritizes stability of full trucks under load regs to prevent tip-overs.</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments3_7">Comments / Remarks:</label>
+                        <textarea id="comments3_7"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets3_7" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets3_7"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="so" data-so="4">
+                <h3>Specific Outcome 4: Document Rigid Body Dump Truck Use</h3>
+                <div class="criteria" data-id="4_1">
+                    <h4>Assessment Criteria 4.1: Rigid Body Dump Truck use is documented according to worksite procedures, including logs and reports.</h4>
+                    <div class="sop">
+                        <h5>Standard Operating Procedures:</h5>
+                        <ol>
+                            <li><input type="checkbox" class="step-check"> Log cycle: Record loads hauled (e.g., 25 trips), tons moved, fuel (500L) in digital app or book.</li>
+                            <li><input type="checkbox" class="step-check"> Faults: Note EMS alerts (e.g., low air), steps taken, supervisor sign-off.</li>
+                            <li><input type="checkbox" class="step-check"> Maintenance: Update daily sheet with tire pressures, grease points; file for fleet audits.</li>
+                            <li><input type="checkbox" class="step-check"> Incidents: Detail spills (e.g., 2 tons lost), causes, cleanup per OHS reporting.</li>
+                            <li><input type="checkbox" class="step-check"> Shift end: Handover notes, e.g., "Body clean, 80% fuel, brakes checked."</li>
+                        </ol>
+                    </div>
+                    <div class="comments">
+                        <label for="comments4_1">Comments / Remarks:</label>
+                        <textarea id="comments4_1"></textarea>
+                    </div>
+                    <div class="assessment">
+                        <label><input type="checkbox" name="meets4_1" class="score-checkbox"> Meets Criteria</label>
+                        <label><input type="checkbox" name="notmeets4_1"> Does Not Meet Criteria</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2. Oral Knowledge Questionnaire (Essential Embedded Knowledge)</h2>
+            <div class="question" data-id="ek1">
+                <h3>Question 1: Explain the main function of the Rigid Body Dump Truck machine (Model Answer: To haul and dump bulk materials like ore or waste on haul roads)</h3>
+                <div class="comments">
+                    <label for="response1">Learner’s Recorded Response:</label>
+                    <textarea id="response1"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets1" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets1"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek2">
+                <h3>Question 2: List the Rigid Body Dump Truck operation procedures and explain the main functions of all major components (Model Answer: Engine – Provide power for haul; Fuel system – Supply diesel for combustion; Hydraulic system – Tip body for dumping; Electrical system – Power gauges/lights/batteries; Braking/Retarder – Control speed on grades; Cooling system – Prevent overheating; Proximity awareness – Monitor surroundings for collisions)</h3>
+                <div class="comments">
+                    <label for="response2">Learner’s Recorded Response:</label>
+                    <textarea id="response2"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets2" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets2"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek3">
+                <h3>Question 3: What is the maximum operating capacities of the designed Rigid Body Dump Truck capabilities (Model Answer: E.g., 40-ton payload, 45 m³ body; Show capacity plate on door; Demonstrate reading GVW 90 tons; Learner points to ton/kg indicators)</h3>
+                <div class="comments">
+                    <label for="response3">Learner’s Recorded Response:</label>
+                    <textarea id="response3"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets3" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets3"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek4">
+                <h3>Question 4: Describe the corrective action you would take once you have received a warning i.e. EMS (Model Answer: Stop immediately, idle 5 min to cool; Air gauge – Loss leads to brake failure, lower body/stop; Transmission oil – High/low indicates overload/leak, slow down/report; Temperature – Overheat risk, stop/report; Engine oil – Abnormal levels, shutdown/report; Hydraulic – Low, lower body/report; Water temp – Do not open cap, stop/report; Fuel – Plan refuel if low, call support)</h3>
+                <div class="comments">
+                    <label for="response4">Learner’s Recorded Response:</label>
+                    <textarea id="response4"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets4" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets4"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek5">
+                <h3>Question 5: List relevant Worksite Procedures you must follow at the start of your shift (Model Answer: PPE: Boots/overall/hearing/reflective vest/hard hat/safety shoes; Walk-around: Check undercarriage, open hood for oil/battery/water/fuel; Cab: Loose items/seat; Start: Idle 5 min, check gauges; Remove blocks, no persons under, sound alarm; Brake test; Lift body check; Alarm again, reverse; Shutdown: Park safe, lower body, neutral, idle 5 min, park brake, off engine, close windows, exit keys, lock doors, blocks, handover)</h3>
+                <div class="comments">
+                    <label for="response5">Learner’s Recorded Response:</label>
+                    <textarea id="response5"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets5" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets5"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+            <div class="question" data-id="ek6">
+                <h3>Question 6: List 6 aspects relating to the Statutory requirements including the relevant Code of practice and Safety and Health environment legislation (Model Answer: Obey signs – Safety for all; Established roads – ISO 14000 environmental protection; Keep left/overtaking – Road act compliance; Speed limits – Machine control; 50m distance – Accident avoidance; Yield laden – Space for passing; No cables – Shock prevention; No barricade squash – Visibility; Pedestrians alert – Injury prevention; Seatbelt – Road act; Animals – Environmental awareness; No closed areas – Equipment/material damage avoidance)</h3>
+                <div class="comments">
+                    <label for="response6">Learner’s Recorded Response:</label>
+                    <textarea id="response6"></textarea>
+                </div>
+                <div class="assessment">
+                    <label><input type="checkbox" name="meets6" class="score-checkbox"> Meets Criteria</label>
+                    <label><input type="checkbox" name="notmeets6"> Does Not Meet Criteria</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>3. Overall Assessment Summary</h2>
+            <div class="assessment-summary">
+                <div class="competence-score">
+                    <h4>Auto-Calculated Competence Score: <span id="score-display">0%</span> (based on 12 criteria)</h4>
+                    <p id="score-advice">Score Advice: Select overall assessment below.</p>
+                </div>
+                <div class="thresholds">
+                    <div>
+                        <label for="marginalThreshold">Marginal Threshold (%): </label>
+                        <input type="number" id="marginalThreshold" value="60" min="0" max="100" onchange="calculateScore()">
+                    </div>
+                    <div>
+                        <label for="competentThreshold">Competent Threshold (%): </label>
+                        <input type="number" id="competentThreshold" value="80" min="0" max="100" onchange="calculateScore()">
+                    </div>
+                </div>
+                <div class="assessment">
+                    <label><input type="radio" name="overall" value="competent" required> Competent</label>
+                    <label><input type="radio" name="overall" value="notyet"> Not Yet Competent</label>
+                </div>
+                <div class="comments">
+                    <label for="summaryComments">Overall Summary Comments:</label>
+                    <textarea id="summaryComments"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Signatures for Authenticity</h2>
+            <div class="signature">
+                <div>
+                    <h3>Learner Signature</h3>
+                    <canvas id="learnerSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="learnerSigText" placeholder="Typed Name">
+                </div>
+                <div>
+                    <h3>Assessor Signature</h3>
+                    <canvas id="assessorSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="assessorSigText" placeholder="Typed Name">
+                </div>
+                <div>
+                    <h3>Moderator Signature</h3>
+                    <canvas id="moderatorSig" width="400" height="100"></canvas>
+                    <p><em>Draw above or type below:</em></p>
+                    <input type="text" id="moderatorSigText" placeholder="Typed Name">
+                    <label for="moderationDate">Date:</label>
+                    <input type="date" id="moderationDate" value="2025-11-13" required>
+                    <div class="moderator-comments">
+                        <label for="moderatorComments">Moderator Comments:</label>
+                        <textarea id="moderatorComments"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="validateAndPrint()">Print / Save as PDF</button>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mutual exclusive checkboxes
+            const assessments = document.querySelectorAll('.assessment');
+            assessments.forEach(ass => {
+                const meets = ass.querySelector('input[name^="meets"]');
+                const notmeets = ass.querySelector('input[name^="notmeets"]');
+                if (meets && notmeets) {
+                    [meets, notmeets].forEach(cb => {
+                        cb.addEventListener('change', () => {
+                            if (cb.checked) {
+                                meets.checked = (cb === meets);
+                                notmeets.checked = (cb === notmeets);
+                            }
+                            calculateScore();
+                        });
+                    });
+                }
+            });
+
+            // Auto-calculate competence score
+            function calculateScore() {
+                const scoreCheckboxes = document.querySelectorAll('.score-checkbox:checked');
+                const totalCriteria = document.querySelectorAll('.score-checkbox').length;
+                const score = totalCriteria > 0 ? Math.round((scoreCheckboxes.length / totalCriteria) * 100) : 0;
+                document.getElementById('score-display').textContent = score + '%';
+
+                const marginalThreshold = parseInt(document.getElementById('marginalThreshold').value) || 60;
+                const competentThreshold = parseInt(document.getElementById('competentThreshold').value) || 80;
+                const advice = document.getElementById('score-advice');
+
+                let adviceText = '';
+                let overallValue = '';
+
+                if (score >= competentThreshold) {
+                    adviceText = `Score Advice: Competent (>= ${competentThreshold}%).`;
+                    overallValue = 'competent';
+                } else if (score >= marginalThreshold) {
+                    adviceText = `Score Advice: Marginal (${marginalThreshold}-${competentThreshold}%) - Recommend additional training.`;
+                } else {
+                    adviceText = `Score Advice: Not Yet Competent (< ${marginalThreshold}%) - Requires further assessment.`;
+                    overallValue = 'notyet';
+                }
+
+                advice.textContent = adviceText;
+
+                // Auto-set overall radio if applicable
+                const overallRadio = document.querySelector(`input[name="overall"][value="${overallValue}"]`);
+                if (overallRadio && overallValue) {
+                    overallRadio.checked = true;
+                }
+            }
+
+            // Enhanced Signature canvases
+            function drawOnCanvas(canvasId) {
+                const canvas = document.getElementById(canvasId);
+                const ctx = canvas.getContext('2d');
+
+                // High DPI support for accuracy
+                const dpr = window.devicePixelRatio || 1;
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width * dpr;
+                canvas.height = rect.height * dpr;
+                ctx.scale(dpr, dpr);
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                let drawing = false;
+                let lastX = 0;
+                let lastY = 0;
+
+                function getCoords(e) {
+                    const boundingRect = canvas.getBoundingClientRect();
+                    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+                    const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+                    return {
+                        x: (clientX - boundingRect.left) * (canvas.width / boundingRect.width),
+                        y: (clientY - boundingRect.top) * (canvas.height / boundingRect.height)
+                    };
+                }
+
+                function startDrawing(e) {
+                    e.preventDefault();
+                    drawing = true;
+                    const coords = getCoords(e);
+                    ctx.beginPath();
+                    ctx.moveTo(coords.x, coords.y);
+                    lastX = coords.x;
+                    lastY = coords.y;
+                    canvas.addEventListener('mousemove', draw);
+                    canvas.addEventListener('touchmove', draw);
+                    document.addEventListener('mouseup', stopDrawing);
+                    document.addEventListener('touchend', stopDrawing);
+                }
+
+                function draw(e) {
+                    if (!drawing) return;
+                    e.preventDefault();
+                    const coords = getCoords(e);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#000';
+
+                    // For smoother lines, use quadratic curve
+                    ctx.lineTo((lastX + coords.x) / 2, (lastY + coords.y) / 2);
+                    ctx.lineTo(coords.x, coords.y);
+                    ctx.stroke();
+                    lastX = coords.x;
+                    lastY = coords.y;
+                }
+
+                function stopDrawing(e) {
+                    if (drawing) {
+                        drawing = false;
+                        ctx.closePath();
+                        canvas.removeEventListener('mousemove', draw);
+                        canvas.removeEventListener('touchmove', draw);
+                        document.removeEventListener('mouseup', stopDrawing);
+                        document.removeEventListener('touchend', stopDrawing);
+                    }
+                }
+
+                // Mouse events
+                canvas.addEventListener('mousedown', startDrawing);
+                canvas.addEventListener('mousemove', (e) => { if (drawing) draw(e); });
+                document.addEventListener('mouseup', stopDrawing);
+
+                // Touch events with preventDefault for no scroll
+                canvas.addEventListener('touchstart', startDrawing, { passive: false });
+                canvas.addEventListener('touchmove', draw, { passive: false });
+                canvas.addEventListener('touchend', stopDrawing, { passive: false });
+                canvas.addEventListener('touchcancel', stopDrawing, { passive: false });
+
+                // Clear on double-click
+                canvas.addEventListener('dblclick', () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                });
+
+                // Resize handler for dynamic sizing
+                window.addEventListener('resize', () => {
+                    const rect = canvas.getBoundingClientRect();
+                    canvas.width = rect.width * dpr;
+                    canvas.height = rect.height * dpr;
+                    ctx.scale(dpr, dpr);
+                });
+            }
+
+            drawOnCanvas('learnerSig');
+            drawOnCanvas('assessorSig');
+            drawOnCanvas('moderatorSig');
+        });
+
+        function validateAndPrint() {
+            const form = document.getElementById('checklistForm');
+            const overallRadios = document.querySelectorAll('input[name="overall"]');
+            const overallChecked = Array.from(overallRadios).some(radio => radio.checked);
+            if (!form.checkValidity() || !overallChecked) {
+                alert('Complete required fields, including overall assessment.');
+                return;
+            }
+            window.print();
+        }
+    </script>
+</body>
+</html>
